@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>★¯꒳¯ · 星辰 ✿ 卡牌 · ¯꒳¯★</title>
+    <title>✦ 星尘·古牌 ✦</title>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <style>
         /* ========== 完整样式（无删减） ========== */
@@ -639,18 +639,48 @@
     </style>
 </head>
 <body>
+<!-- ========== 环境检测与降级提示（完美优化） ========== -->
+<script>
+(function() {
+    // 检测是否为微信内置浏览器
+    var isWechat = /MicroMessenger/i.test(navigator.userAgent);
+    // 检测关键 ES6 API 是否支持
+    var isModern = typeof Promise !== 'undefined' && typeof fetch !== 'undefined' && typeof Symbol !== 'undefined';
+    // 获取微信版本号（粗略）
+    var wechatVersion = (navigator.userAgent.match(/MicroMessenger\/([\d.]+)/) || [])[1];
+    var needUpdate = isWechat && wechatVersion && wechatVersion < '7.0.0';
+
+    if ((isWechat && !isModern) || needUpdate) {
+        // 阻止后续脚本执行，显示友好提示
+        document.body && (document.body.innerHTML = '');
+        var div = document.createElement('div');
+        div.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#f8f8f8;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:sans-serif;text-align:center;padding:20px;box-sizing:border-box;';
+        div.innerHTML = '<div style="background:#fff;border-radius:16px;padding:30px 20px;box-shadow:0 2px 12px rgba(0,0,0,0.1);max-width:280px;">' +
+                        '<div style="font-size:48px;margin-bottom:16px;">⚠️</div>' +
+                        '<div style="font-size:18px;font-weight:bold;margin-bottom:12px;">环境不支持</div>' +
+                        '<div style="font-size:14px;color:#666;margin-bottom:24px;">您的微信版本过低或浏览器不兼容，请升级微信，或长按下方链接复制后使用手机自带浏览器打开。</div>' +
+                        '<div style="font-size:12px;color:#999;word-break:break-all;background:#f0f0f0;padding:8px;border-radius:8px;">' + window.location.href + '</div>' +
+                        '<button onclick="location.href=location.href" style="margin-top:20px;background:#07c160;border:none;color:white;padding:8px 20px;border-radius:24px;font-size:14px;">尝试刷新</button>' +
+                        '</div>';
+        document.body && document.body.appendChild(div);
+        // 阻止原有脚本继续执行
+        throw new Error('Unsupported environment');
+    }
+})();
+</script>
+
 <div class="tarot-wrapper">
     <div id="coverLayer" class="cover">
         <div class="star-line">✧*̣̩  ✦  ✧*̣̩</div>
         <h1>✧*̣̩ 星尘·古牌 *̣̩✧</h1>
         <div class="star-line">⋆｡°✩  🃟  ✩°｡⋆</div>
-        <p style="color:#b8a78d;">𓂀 78张古牌 · 星辰解语 · 星之指引 𓂀</p>
+        <p style="color:#b8a78d;">𓂀 78张古牌 · 原版解语 · 星辰指引 𓂀</p>
         <button id="enterBtn" class="enter-btn">✧ 入内 ✧</button>
     </div>
     <div id="divinationPane" class="divination-pane">
         <div class="mode-group">
-            <button id="modeStandardBtn" class="mode-btn active">🎴 随机翻牌</button>
-            <button id="ModeSelectBtn" class="mode-btn">🎲 随机选牌</button>
+            <button id="modeStandardBtn" class="mode-btn active">🎴 标准翻牌</button>
+            <button id="ModeSelectBtn" class="mode-btn">🎲 选牌模式</button>
         </div>
         <div class="top-bar">
             <button id="themeToggleBtn">🌙 深色 · 护眼</button>
@@ -682,7 +712,7 @@
             </div>
         </div>
         <div style="text-align:center;">
-            <button id="drawBtn" class="btn-draw">✨ 开始抽牌 ✨</button>
+            <button id="drawBtn" class="btn-draw">✨ 开始翻牌 ✨</button>
             <button id="toggleManualBtn" class="btn-draw" style="font-size:0.7rem;">🎴 自选编号</button>
         </div>
 
@@ -698,15 +728,15 @@
                     <li><strong>v0.2 - 2026.06.01</strong>：加入完整牌意库（大阿卡纳+小阿卡纳+宫廷牌），正逆位解释各具特色。</li>
                     <li><strong>v0.3 - 2026.06.02</strong>：新增深色/浅色模式切换，优化卡片翻牌动画和震动反馈。</li>
                     <li><strong>v0.4 - 2026.06.02</strong>：添加历史记录与收藏功能，支持复盘与导出JSON。</li>
-                    <li><strong>v0.5 - 2026.06.02</strong>：上线每日塔罗指引（基于日期随机种子），增加分享文本和分享图片功能。</li>
-                    <li><strong>v0.6 - 2026.06.12</strong>：修复自选编号锁，改为首次抽牌后解锁，优化选牌模式界面。</li>
-                    <li><strong>v0.7 - 2026.06.02</strong>：扩充话术库，增加「直白提醒」「星尘指引」「星之低语」三层建议，提升占卜体验。</li>
+                    <li><strong>v0.5 - 2026.06.02</strong>：上线每日古牌指引（基于日期随机种子），增加分享文本和分享图片功能。</li>
+                    <li><strong>v0.6 - 2026.06.12</strong>：修复自选编号锁，改为首次翻牌后解锁，优化选牌模式界面。</li>
+                    <li><strong>v0.7 - 2026.06.02</strong>：扩充话术库，增加「直白提醒」「星尘指引」「星之低语」三层建议。</li>
                     <li><strong>v0.8 - 2026.06.02</strong>：集成腾讯文档留言板，匿名互动；增加捐赠打赏入口。</li>
                     <li><strong>v0.9 - 2026.06.02</strong>：多牌阵支持（二牌抉择、五牌深入），牌阵位置自动适配。</li>
                     <li><strong>v1.0 - 2026.06.02</strong>：首个稳定版，修复分享图片牌背显示问题，优化图片跨域加载。</li>
                     <li><strong>v1.5 - 2026.06.02</strong>：自选编号功能完善，支持输入多个编号一次性开牌，增加输入框防呆校验。</li>
                     <li><strong>v2.0 - 2026.06.03</strong>：全面重构解读引擎，整合能量总结、逆位过半提醒、元素分析，话术动态匹配问题场景。</li>
-                    <li><strong>v3.0 - 2026.06.03</strong>：正式版——所有已知bug修复，分享图片完美生成，牌意库与话术库达到完美预期，并加入更新日志面板记录工程。</li>
+                    <li><strong>v3.0 - 2026.06.03</strong>：正式版——所有已知bug修复，分享图片完美生成，牌意库与话术库达到完美预期。</li>
                 </ul>
                 <p><strong>📢 如有建议或需求，欢迎通过留言板交流～</strong></p>
                 <p style="margin-top:12px; font-size:0.7rem; color:var(--text-secondary);">⭐ 感谢使用星尘古牌，愿星尘指引你的道路。</p>
@@ -723,7 +753,7 @@
             <strong>★ 我的收藏 <button id="exportFavBtn" style="font-size:0.6rem;">📎 导出JSON</button></strong>
             <ul id="favList"></ul>
         </div>
-        <div class="history-title">▼ 古牌历史 <input type="text" id="historySearch" class="history-search" placeholder="🔍 搜索历史..."></div>
+        <div class="history-title">▼ 占卜历史 <input type="text" id="historySearch" class="history-search" placeholder="🔍 搜索历史..."></div>
         <ul class="history-list" id="historyList"><li>—— 暂无 ——</li></ul>
 
         <!-- 腾讯文档留言板 - 已替换为你提供的两个新链接 -->
@@ -736,9 +766,13 @@
             💬 点击「查看留言」浏览大家的寄语
         </div>
 
-        <div class="footer-disclaimer">✧ 心理娱乐参考，请理性看待，严禁封建迷信，仅供个人娱乐 ✧</div>
+        <div class="footer-disclaimer">
+            ✧ 心理娱乐参考，请理性看待 ✧<br>
+            ❁ 严谨封建迷信，仅个人娱乐 ❁
+        </div>
     </div>
 </div>
+
 <div id="shareCardContainer" class="share-card-container"></div>
 <audio id="bgm" loop preload="none"><source src="https://music.163.com/song/media/outer/url?id=2015896805.mp3" type="audio/mpeg"></audio>
 <div id="musicCtrl" class="music-control">🔇 音乐关</div>
@@ -762,7 +796,7 @@
 
 <script>
 // ==================== 图片配置 ====================
-const IMAGE_BASE_URL = 'https://ghproxy.net/https://raw.githubusercontent.com/xfhkx2006/shiny-chainsaw/main/';
+const IMAGE_BASE_URL = 'https://ghproxy.net/https://raw.githubusercontent.com/xyykx43/shiny-chainsaw/main/';
 const IMAGE_FILENAME_TEMPLATE = '{id}.png';
 function getCardImageUrl(cardId) {
     const idx = cardId - 1;
@@ -787,9 +821,8 @@ for (let s of suits) {
     ["侍从","骑士","王后","国王"].forEach(court => allCards.push({ id: allCards.length+1, name: `${s}·${court}`, suit: s, type: "court" }));
 }
 
-// ==================== 完整牌意（78张全部完整） ====================
+// ==================== 完整牌意（78张全部） ====================
 const cardMeanings = {};
-
 // 大阿卡纳 22张
 cardMeanings["愚者"] = { up: "天真如初生之犊，脚下是未知的悬崖，心中却是星辰大海。你即将踏上一段全新的旅程，无关经验只关乎勇气。这张牌提醒你：信任内在的冲动，但别忘了带上行囊。", rev: "愚者的步伐被迟疑绊倒。你害怕出丑，或者过度依赖他人的意见。真正的危险不是悬崖，而是停在原地假装看不见梦想。请找回那份不计后果的纯真。" };
 cardMeanings["魔术师"] = { up: "四元素齐聚指尖，你拥有创造现实所需的一切工具。清晰的意图+坚定的行动=显化奇迹。现在不是犹豫的时刻，而是将灵感化为物质的黄金瞬间。", rev: "牌面倒转，能量错位。你可能在欺骗自己或他人，或者空有才华却无从下手。检查你的动机——是恐惧在操纵你吗？先清空杂念，再重新连接你的力量。" };
@@ -813,7 +846,6 @@ cardMeanings["月亮"] = { up: "潜意识之潮，梦境与恐惧。你走在迷
 cardMeanings["太阳"] = { up: "光芒万丈，喜悦满溢。所有阴霾一扫而空，你像孩子一样自由奔跑。成功、健康、婚礼、新生——纯粹的快乐时刻。", rev: "短暂的阴云，或过度乐观。你可能暂时感到孤独或受挫，但太阳从未消失。再坚持一下，温暖会回来。" };
 cardMeanings["审判"] = { up: "因果清算，灵魂的觉醒。你听到了内心的召唤，必须回应。过去的功过被揭示，宽恕与重生就在此刻。", rev: "抗拒改变，耳聋于召唤。你可能拖延重要的决定，害怕面对真实的自己。静下来，那声音从未停止。" };
 cardMeanings["世界"] = { up: "圆满完成，周期终结。你跳舞于世界之轮的中心，整合了所有碎片。旅行、毕业、目标达成——完美句号，也是新篇章的序曲。", rev: "接近终点但差一步。你可能因为小疏忽而延迟成功，或者不愿结束美好时光。完成最后的仪式，然后放手。" };
-
 // 小阿卡纳 权杖
 cardMeanings["权杖1"] = { up: "火苗初燃，行动的开端。新的热情、机会或灵感正等着你伸手去抓。不要犹豫，迈出第一步。", rev: "热情受阻，计划延迟。你可能缺乏动力或信心，先点燃内在的火花再行动。" };
 cardMeanings["权杖2"] = { up: "手握权杖眺望远方，你在计划和选择之间权衡。未来充满可能性，但不必急于决定。", rev: "犹豫不决，恐惧未知。过度分析导致瘫痪，相信你的直觉。" };
@@ -1158,7 +1190,7 @@ function revealSelectedCards() {
 }
 
 function manualDrawCards(manualCards) {
-    if(!isManualUnlocked) { showToast("🔒 请先点击「开始抽牌」解锁自选编号功能。"); return; }
+    if(!isManualUnlocked) { showToast("🔒 请先点击「开始翻牌」解锁自选编号功能。"); return; }
     if(!manualCards || manualCards.length === 0) { showToast("请至少输入一个编号"); return; }
     let q = document.getElementById('questionInput').value.trim();
     if(!q) { showToast("请先写下问题"); return; }
@@ -1203,11 +1235,11 @@ function setMode(mode) {
 }
 function renderHistory() { let ul=document.getElementById('historyList'); let search=document.getElementById('historySearch').value.toLowerCase(); let filtered=history.filter(h=>h.question.toLowerCase().includes(search)); if(!filtered.length){ ul.innerHTML='<li>无匹配</li>'; return; } ul.innerHTML=filtered.map((h,i)=>`<li data-idx="${i}">✦ ${h.question.substring(0,20)} — ${h.cards.map(id=>allCards.find(c=>c.id===id)?.name||'?').join('|')}<button class="delete-history" data-idx="${i}">🗑️</button></li>`).join(''); document.querySelectorAll('.delete-history').forEach(btn=>btn.addEventListener('click',(e)=>{ e.stopPropagation(); let idx=parseInt(btn.dataset.idx); history.splice(idx,1); localStorage.setItem('tarot_history',JSON.stringify(history)); renderHistory(); showToast("已删除"); })); document.querySelectorAll('#historyList li[data-idx]').forEach(li=>li.addEventListener('click',(e)=>{ if(e.target.classList.contains('delete-history')) return; let h=history[parseInt(li.dataset.idx)]; if(h){ let cards=h.cards.map(id=>allCards.find(c=>c.id===id)).filter(Boolean); if(cards.length){ currentCards=cards; currentReverses=h.reverses; currentQuestion=h.question; currentSpread=h.spread; document.getElementById('spreadSelect').value=h.spread; if(currentMode==="standard") standardDraw(cards); else startSelectMode(); } } })); }
 function renderFavorites() { let ul=document.getElementById('favList'); if(!favorites.length){ ul.innerHTML='<li>暂无收藏</li>'; return; } ul.innerHTML=favorites.map((f,i)=>`<li data-fav="${i}">★ ${f.question.substring(0,16)} <span class="favorite-note">${f.note||''}</span> <button class="edit-fav-note" data-idx="${i}">📝</button> <button class="del-fav" data-idx="${i}">❌</button></li>`).join(''); document.querySelectorAll('.edit-fav-note').forEach(btn=>btn.addEventListener('click',(e)=>{ let idx=btn.dataset.idx; let newNote=prompt("备注:", favorites[idx].note||""); if(newNote!==null){ favorites[idx].note=newNote; localStorage.setItem('tarot_favorites',JSON.stringify(favorites)); renderFavorites(); } })); document.querySelectorAll('.del-fav').forEach(btn=>btn.addEventListener('click',(e)=>{ let idx=btn.dataset.idx; favorites.splice(idx,1); localStorage.setItem('tarot_favorites',JSON.stringify(favorites)); renderFavorites(); showToast("已删除"); })); document.querySelectorAll('#favList li[data-fav]').forEach(li=>li.addEventListener('click',(e)=>{ if(e.target.tagName==='BUTTON') return; let f=favorites[parseInt(li.dataset.fav)]; if(f){ let cards=f.cards.map(id=>allCards.find(c=>c.id===id)).filter(Boolean); if(cards.length){ currentCards=cards; currentReverses=f.reverses; currentQuestion=f.question; currentSpread=f.spread; document.getElementById('spreadSelect').value=f.spread; if(currentMode==="standard") standardDraw(cards); else startSelectMode(); } } })); }
-function saveFavorite() { if(!currentCards.length){ showToast("先抽牌"); return; } favorites.push({question:currentQuestion, cards:currentCards.map(c=>c.id), reverses:currentReverses, spread:currentSpread, time:new Date().toLocaleString(), note:""}); if(favorites.length>20)favorites.shift(); localStorage.setItem('tarot_favorites',JSON.stringify(favorites)); showToast("已收藏"); renderFavorites(); }
-function exportResult() { if(!currentCards.length){ showToast("先抽牌"); return; } let text=`【星尘塔罗】\n问题：${currentQuestion}\n牌阵：${currentSpread}张\n`; for(let i=0;i<currentCards.length;i++) text+=`${currentCards[i].name} · ${currentReverses[i]?'逆位':'正位'}\n`; text+=`\n${generateFullInterpretation(currentCards,currentReverses,currentQuestion,currentSpread)}`; navigator.clipboard.writeText(text).then(()=>showToast("已复制")).catch(()=>showToast("失败")); }
-async function generateShareImage() { if (!currentCards.length) { showToast("请先抽牌"); return; } vibShort(); showToast("正在生成图片..."); if (typeof html2canvas === 'undefined') { showToast("截图库未加载"); return; } const container = document.createElement('div'); container.style.background = '#fdf8f0'; container.style.padding = '24px'; container.style.borderRadius = '28px'; container.style.maxWidth = '700px'; container.style.margin = '0 auto'; container.style.fontFamily = "'Georgia', 'Times New Roman', 'PingFang SC', 'Microsoft YaHei', serif"; container.style.color = '#2e2a24'; const header = document.createElement('div'); header.style.textAlign = 'center'; header.style.marginBottom = '20px'; header.style.borderBottom = '1px solid #e0d6c4'; header.style.paddingBottom = '12px'; header.innerHTML = `<h2 style="color:#b8a070; margin:0;">✧ 星尘塔罗 ✧</h2><div style="font-size:14px; color:#8b7a66;">${currentSpread===3?"三牌 · 过去现在未来":(currentSpread===2?"二牌 · 抉择":"五牌 · 深入")}</div><div style="font-size:14px; color:#8b7a66;">问题：${currentQuestion}</div><div style="font-size:12px; color:#8b7a66;">${new Date().toLocaleString()}</div>`; container.appendChild(header); const cardsDiv = document.createElement('div'); cardsDiv.style.display = 'flex'; cardsDiv.style.flexWrap = 'wrap'; cardsDiv.style.justifyContent = 'center'; cardsDiv.style.gap = '20px'; cardsDiv.style.margin = '20px 0'; for (let i = 0; i < currentCards.length; i++) { const card = currentCards[i]; const rev = currentReverses[i]; const imgUrl = getCardImageUrl(card.id); const meaningShort = (cardMeanings[card.name] ? (rev ? cardMeanings[card.name].rev : cardMeanings[card.name].up) : "").substring(0, 80); const cardDiv = document.createElement('div'); cardDiv.style.background = '#fff'; cardDiv.style.border = '1px solid #e0d6c4'; cardDiv.style.borderRadius = '16px'; cardDiv.style.padding = '12px'; cardDiv.style.width = '150px'; cardDiv.style.textAlign = 'center'; cardDiv.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)'; cardDiv.innerHTML = `<img src="${imgUrl}" style="width:100px; border-radius:12px; margin-bottom:8px;"><div style="font-weight:bold; font-size:1rem;">${card.name}</div><div style="font-size:0.7rem; color:#8b7a66; margin:4px 0;">${rev ? '逆位' : '正位'}</div><div style="font-size:0.7rem; line-height:1.4;">${meaningShort}...</div>`; cardsDiv.appendChild(cardDiv); } container.appendChild(cardsDiv); const fullInterp = generateFullInterpretation(currentCards, currentReverses, currentQuestion, currentSpread); const interpDiv = document.createElement('div'); interpDiv.style.border = '1px solid #e0d6c4'; interpDiv.style.borderRadius = '20px'; interpDiv.style.padding = '1.2rem 1.4rem'; interpDiv.style.marginTop = '24px'; interpDiv.style.background = 'rgba(0,0,0,0.02)'; interpDiv.style.lineHeight = '1.65'; interpDiv.style.fontSize = '0.9rem'; interpDiv.innerHTML = fullInterp.replace(/\n/g, '<br>'); container.appendChild(interpDiv); const tempContainer = document.createElement('div'); tempContainer.style.position = 'fixed'; tempContainer.style.top = '-9999px'; tempContainer.style.left = '-9999px'; tempContainer.appendChild(container); document.body.appendChild(tempContainer); try { const imgs = tempContainer.querySelectorAll('img'); for (let img of imgs) { if (!img.complete || img.naturalWidth === 0) { await new Promise(resolve => { img.onload = resolve; img.onerror = resolve; }); } img.crossOrigin = "Anonymous"; } const canvas = await html2canvas(tempContainer, { scale: 2, backgroundColor: '#fdf8f0', useCORS: true, logging: false }); const url = canvas.toDataURL('image/png'); const a = document.createElement('a'); a.href = url; a.download = `星尘塔罗_${Date.now()}.png`; a.click(); showToast("图片已保存"); } catch (err) { console.error(err); showToast("生成图片失败，可尝试使用「分享文本」"); } finally { document.body.removeChild(tempContainer); } }
+function saveFavorite() { if(!currentCards.length){ showToast("先翻牌"); return; } favorites.push({question:currentQuestion, cards:currentCards.map(c=>c.id), reverses:currentReverses, spread:currentSpread, time:new Date().toLocaleString(), note:""}); if(favorites.length>20)favorites.shift(); localStorage.setItem('tarot_favorites',JSON.stringify(favorites)); showToast("已收藏"); renderFavorites(); }
+function exportResult() { if(!currentCards.length){ showToast("先翻牌"); return; } let text=`【星尘古牌】\n问题：${currentQuestion}\n牌阵：${currentSpread}张\n`; for(let i=0;i<currentCards.length;i++) text+=`${currentCards[i].name} · ${currentReverses[i]?'逆位':'正位'}\n`; text+=`\n${generateFullInterpretation(currentCards,currentReverses,currentQuestion,currentSpread)}`; navigator.clipboard.writeText(text).then(()=>showToast("已复制")).catch(()=>showToast("失败")); }
+async function generateShareImage() { if (!currentCards.length) { showToast("请先翻牌"); return; } vibShort(); showToast("正在生成图片..."); if (typeof html2canvas === 'undefined') { showToast("截图库未加载"); return; } const container = document.createElement('div'); container.style.background = '#fdf8f0'; container.style.padding = '24px'; container.style.borderRadius = '28px'; container.style.maxWidth = '700px'; container.style.margin = '0 auto'; container.style.fontFamily = "'Georgia', 'Times New Roman', 'PingFang SC', 'Microsoft YaHei', serif"; container.style.color = '#2e2a24'; const header = document.createElement('div'); header.style.textAlign = 'center'; header.style.marginBottom = '20px'; header.style.borderBottom = '1px solid #e0d6c4'; header.style.paddingBottom = '12px'; header.innerHTML = `<h2 style="color:#b8a070; margin:0;">✧ 星尘古牌 ✧</h2><div style="font-size:14px; color:#8b7a66;">${currentSpread===3?"三牌 · 过去现在未来":(currentSpread===2?"二牌 · 抉择":"五牌 · 深入")}</div><div style="font-size:14px; color:#8b7a66;">问题：${currentQuestion}</div><div style="font-size:12px; color:#8b7a66;">${new Date().toLocaleString()}</div>`; container.appendChild(header); const cardsDiv = document.createElement('div'); cardsDiv.style.display = 'flex'; cardsDiv.style.flexWrap = 'wrap'; cardsDiv.style.justifyContent = 'center'; cardsDiv.style.gap = '20px'; cardsDiv.style.margin = '20px 0'; for (let i = 0; i < currentCards.length; i++) { const card = currentCards[i]; const rev = currentReverses[i]; const imgUrl = getCardImageUrl(card.id); const meaningShort = (cardMeanings[card.name] ? (rev ? cardMeanings[card.name].rev : cardMeanings[card.name].up) : "").substring(0, 80); const cardDiv = document.createElement('div'); cardDiv.style.background = '#fff'; cardDiv.style.border = '1px solid #e0d6c4'; cardDiv.style.borderRadius = '16px'; cardDiv.style.padding = '12px'; cardDiv.style.width = '150px'; cardDiv.style.textAlign = 'center'; cardDiv.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)'; cardDiv.innerHTML = `<img src="${imgUrl}" style="width:100px; border-radius:12px; margin-bottom:8px;"><div style="font-weight:bold; font-size:1rem;">${card.name}</div><div style="font-size:0.7rem; color:#8b7a66; margin:4px 0;">${rev ? '逆位' : '正位'}</div><div style="font-size:0.7rem; line-height:1.4;">${meaningShort}...</div>`; cardsDiv.appendChild(cardDiv); } container.appendChild(cardsDiv); const fullInterp = generateFullInterpretation(currentCards, currentReverses, currentQuestion, currentSpread); const interpDiv = document.createElement('div'); interpDiv.style.border = '1px solid #e0d6c4'; interpDiv.style.borderRadius = '20px'; interpDiv.style.padding = '1.2rem 1.4rem'; interpDiv.style.marginTop = '24px'; interpDiv.style.background = 'rgba(0,0,0,0.02)'; interpDiv.style.lineHeight = '1.65'; interpDiv.style.fontSize = '0.9rem'; interpDiv.innerHTML = fullInterp.replace(/\n/g, '<br>'); container.appendChild(interpDiv); const tempContainer = document.createElement('div'); tempContainer.style.position = 'fixed'; tempContainer.style.top = '-9999px'; tempContainer.style.left = '-9999px'; tempContainer.appendChild(container); document.body.appendChild(tempContainer); try { const imgs = tempContainer.querySelectorAll('img'); for (let img of imgs) { if (!img.complete || img.naturalWidth === 0) { await new Promise(resolve => { img.onload = resolve; img.onerror = resolve; }); } img.crossOrigin = "Anonymous"; } const canvas = await html2canvas(tempContainer, { scale: 2, backgroundColor: '#fdf8f0', useCORS: true, logging: false }); const url = canvas.toDataURL('image/png'); const a = document.createElement('a'); a.href = url; a.download = `星尘古牌_${Date.now()}.png`; a.click(); showToast("图片已保存"); } catch (err) { console.error(err); showToast("生成图片失败，可尝试使用「分享文本」"); } finally { document.body.removeChild(tempContainer); } }
 function updateManualInputs(){ let spread=parseInt(document.getElementById('spreadSelect').value); document.getElementById('manualInputs').innerHTML=Array.from({length:spread},(_,i)=>`<input type="number" min="1" max="78" placeholder="${i+1}" class="manual-input">`).join(''); }
-function showTodayCard(){ let seed=Math.floor(Date.now()/(1000*60*60*24)); let rng=(s)=>{ let x=Math.sin(s)*10000; return x-Math.floor(x); }; let idx=Math.floor(rng(seed)*allCards.length); let card=allCards[idx]; let isRev=rng(seed+1)<0.5; let meaning=cardMeanings[card.name]?(isRev?cardMeanings[card.name].rev:cardMeanings[card.name].up):""; document.getElementById('todayCard').innerHTML=`✨ 今日指引：${card.name} ${isRev?'逆位':'正位'} ✨<br><span style="font-size:0.7rem;">${meaning.substring(0,60)}...</span>`; document.getElementById('todayCard').onclick=()=>{ document.getElementById('modalTextContent').innerHTML=`<strong>${card.name} · ${isRev?'逆位':'正位'}</strong><p>${meaning}</p><button id="closeModalBtn">关闭</button>`; document.getElementById('cardModal').classList.add('active'); document.getElementById('closeModalBtn').onclick=()=>{ document.getElementById('cardModal').classList.remove('active'); }; }; }
+function showTodayCard(){ let seed=Math.floor(Date.now()/(1000*60*60*24)); let rng=(s)=>{ let x=Math.sin(s)*10000; return x-Math.floor(x); }; let idx=Math.floor(rng(seed)*allCards.length); let card=allCards[idx]; let isRev=rng(seed+1)<0.5; let meaning=cardMeanings[card.name]?(isRev?cardMeanings[card.name].rev:cardMeanings[card.name].up):""; document.getElementById('todayCard').innerHTML=`✨ 今日古牌：${card.name} ${isRev?'逆位':'正位'} ✨<br><span style="font-size:0.7rem;">${meaning.substring(0,60)}...</span>`; document.getElementById('todayCard').onclick=()=>{ document.getElementById('modalTextContent').innerHTML=`<strong>${card.name} · ${isRev?'逆位':'正位'}</strong><p>${meaning}</p><button id="closeModalBtn">关闭</button>`; document.getElementById('cardModal').classList.add('active'); document.getElementById('closeModalBtn').onclick=()=>{ document.getElementById('cardModal').classList.remove('active'); }; }; }
 function loadState(){ let h=localStorage.getItem('tarot_history'); if(h) try{ history=JSON.parse(h); renderHistory(); }catch(e){} let f=localStorage.getItem('tarot_favorites'); if(f) try{ favorites=JSON.parse(f); renderFavorites(); }catch(e){} let sess=sessionStorage.getItem('current_session'); if(sess) try{ let d=JSON.parse(sess); currentCards=d.cards.map(id=>allCards.find(c=>c.id===id)).filter(Boolean); currentReverses=d.reverses; currentQuestion=d.question; currentSpread=d.spread; if(currentCards.length) drawCards(currentCards); }catch(e){} }
 function saveSession(){ if(currentCards.length) sessionStorage.setItem('current_session',JSON.stringify({cards:currentCards.map(c=>c.id), reverses:currentReverses, question:currentQuestion, spread:currentSpread})); }
 
